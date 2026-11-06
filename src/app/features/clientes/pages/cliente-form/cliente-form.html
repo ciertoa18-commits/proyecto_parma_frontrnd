@@ -1,0 +1,80 @@
+<section class="page">
+  <p class="eyebrow">Personal</p>
+  <h2>{{ esEdicion() ? 'Editar cliente' : 'Nuevo cliente' }}</h2>
+
+  @if (error()) {
+    <div class="alerta">{{ error() }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="card formulario">
+    <label>
+      DNI
+      <input class="input" formControlName="dni" />
+    </label>
+    @if (form.controls.dni.touched && form.controls.dni.invalid) {
+      <small class="error">El DNI es obligatorio y debe tener 8 caracteres.</small>
+    }
+    @if (erroresServidor()['dni']; as mensaje) {
+      <small class="error">{{ mensaje }}</small>
+    }
+
+    <div class="dos-columnas">
+      <label>
+        Nombres
+        <input class="input" formControlName="nombres" />
+      </label>
+      <label>
+        Apellidos
+        <input class="input" formControlName="apellidos" />
+      </label>
+    </div>
+    @if ((form.controls.nombres.touched && form.controls.nombres.invalid) || (form.controls.apellidos.touched && form.controls.apellidos.invalid)) {
+      <small class="error">Nombres y apellidos son obligatorios y deben tener entre 2 y 80 caracteres.</small>
+    }
+    @if (erroresServidor()['nombres']; as mensaje) {
+      <small class="error">{{ mensaje }}</small>
+    }
+    @if (erroresServidor()['apellidos']; as mensaje) {
+      <small class="error">{{ mensaje }}</small>
+    }
+
+    <label>
+      Email
+      <input class="input" formControlName="email" type="email" />
+    </label>
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="error">Ingrese un email válido.</small>
+    }
+    @if (erroresServidor()['email']; as mensaje) {
+      <small class="error">{{ mensaje }}</small>
+    }
+
+    <div class="dos-columnas">
+      <label>
+        Teléfono
+        <input class="input" formControlName="telefono" />
+      </label>
+      <label>
+        Dirección
+        <input class="input" formControlName="direccion" />
+      </label>
+    </div>
+    @if (form.controls.telefono.touched && form.controls.telefono.invalid) {
+      <small class="error">Máximo 20 caracteres.</small>
+    }
+    @if (form.controls.direccion.touched && form.controls.direccion.invalid) {
+      <small class="error">Máximo 200 caracteres.</small>
+    }
+
+    <label class="check">
+      <input type="checkbox" formControlName="estado" /> Activo
+    </label>
+
+    <div class="acciones">
+      <a routerLink="/clientes" class="btn">Cancelar</a>
+      <button type="submit" class="btn btn-primary" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : (esEdicion() ? 'Actualizar' : 'Registrar') }}
+      </button>
+    </div>
+  </form>
+</section>

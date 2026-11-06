@@ -4,6 +4,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaginaResponse } from '../../../../core/models/pagina-response';
+import { SiPermisoDirective } from '../../../../core/auth/si-permiso.directive';
 import { mensajeError } from '../../../../core/utils/http-error';
 import { Cliente } from '../../../clientes/models/cliente.model';
 import { ClienteService } from '../../../clientes/services/cliente-service';
@@ -12,7 +13,7 @@ import { VentaService } from '../../services/venta-service';
 
 @Component({
   selector: 'app-venta-list',
-  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, DatePipe],
+  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, DatePipe, SiPermisoDirective],
   templateUrl: './venta-list.html',
   styleUrl: './venta-list.css',
 })

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { normalizarPagina, PaginaResponse } from '../../../core/models/pagina-response';
-import { Cliente } from '../models/cliente.model';
+import { Cliente, ClienteRequest } from '../models/cliente.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteService {
@@ -28,5 +28,17 @@ export class ClienteService {
 
   obtener(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.url}/${id}`);
+  }
+
+  crear(dto: ClienteRequest): Observable<Cliente> {
+    return this.http.post<Cliente>(this.url, dto);
+  }
+
+  actualizar(id: number, dto: ClienteRequest): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.url}/${id}`, dto);
+  }
+
+  eliminar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 }

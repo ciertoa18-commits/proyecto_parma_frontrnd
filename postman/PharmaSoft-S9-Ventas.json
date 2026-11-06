@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "ba2f39d7-62d5-4f2a-91b5-91f3d023b911",
     "name": "PharmaSoft - S9 Ventas",
-    "description": "Colección para verificar ventas y el reporte por categoría. Requiere PharmaBackend local; usa registros ficticios de QA. Las solicitudes POST crean ventas persistentes. Para M-01, reinicia el stock del producto de prueba a 2 en una base desechable y ejecuta ambas solicitudes al mismo tiempo.",
+    "description": "Colección para verificar ventas y el reporte por categoría. Requiere PharmaBackend local y datos de prueba preparados. Completa los IDs con registros de una base de QA antes de usar las solicitudes POST; pueden crear ventas persistentes y descontar stock. Para M-01, reinicia el stock del producto de prueba a 2 en una base desechable y ejecuta ambas solicitudes al mismo tiempo.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -78,7 +78,7 @@
       "name": "Validaciones de ventas",
       "item": [
         {
-          "name": "V-05 · Producto repetido en dos líneas (hallazgo observado)",
+          "name": "V-05 · Producto repetido en dos líneas",
           "request": {
             "method": "POST",
             "header": [
@@ -92,7 +92,7 @@
               "raw": "{\n  \"clienteId\": {{clienteActivoId}},\n  \"detalles\": [\n    { \"productoId\": {{productoExtraId}}, \"cantidad\": 1 },\n    { \"productoId\": {{productoExtraId}}, \"cantidad\": 1 }\n  ]\n}"
             },
             "url": "{{baseUrl}}/ventas",
-            "description": "Prueba persistente: la API respondió HTTP 201 con dos líneas del mismo producto y total duplicado. Ejecútala solo en una base de pruebas."
+            "description": "Caso de prueba pendiente de ejecución: registra la respuesta real de la API. Ejecútalo solo en una base desechable de QA, ya que una respuesta 201 crea una venta y descuenta stock."
           },
           "event": [
             {
@@ -213,7 +213,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8081/api/v1"
+      "value": "http://localhost:8080/api/v1"
     },
     {
       "key": "desde",
@@ -225,27 +225,27 @@
     },
     {
       "key": "clienteActivoId",
-      "value": "1"
+      "value": ""
     },
     {
       "key": "clienteSecundarioId",
-      "value": "2"
+      "value": ""
     },
     {
       "key": "clienteInactivoId",
-      "value": "4"
+      "value": ""
     },
     {
       "key": "productoStock2Id",
-      "value": "6"
+      "value": ""
     },
     {
       "key": "productoPrecio1890Id",
-      "value": "7"
+      "value": ""
     },
     {
       "key": "productoExtraId",
-      "value": "8"
+      "value": ""
     }
   ]
 }

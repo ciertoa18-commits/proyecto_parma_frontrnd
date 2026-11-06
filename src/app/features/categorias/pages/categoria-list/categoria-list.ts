@@ -2,12 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { mensajeError } from '../../../../core/utils/http-error';
+import { SiPermisoDirective } from '../../../../core/auth/si-permiso.directive';
 import { Categoria } from '../../models/categoria.model';
 import { CategoriaService } from '../../services/categoria-service';
 
 @Component({
   selector: 'app-categoria-list',
-  imports: [RouterLink],
+  imports: [RouterLink, SiPermisoDirective],
   templateUrl: './categoria-list.html',
   styleUrl: './categoria-list.css',
 })

@@ -1,0 +1,91 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Personal</p>
+      <h2>Clientes</h2>
+    </div>
+    <a *appSiPermiso="'CLIENTES_ESCRIBIR'" routerLink="nuevo" class="btn btn-primary">+ Nuevo cliente</a>
+  </header>
+
+  <input class="input buscador" placeholder="Buscar por nombre, DNI o email..." [value]="filtro()" (input)="filtro.set($any($event.target).value)" />
+
+  @if (error()) {
+    <div class="alerta">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <p>Cargando clientes...</p>
+  } @else {
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DNI</th>
+          <th>Cliente</th>
+          <th>Email</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cliente of filtradas(); track cliente.id) {
+          <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.dni }}</td>
+            <td>{{ cliente.apellidos }}, {{ cliente.nombres }}</td>
+            <td>{{ cliente.email }}</td>
+            <td><span class="badge" [class.inactivo]="!cliente.estado">{{ cliente.estado ? 'Activo' : 'Inactivo' }}</span></td>
+            <td class="acciones">
+              <a *appSiPermiso="'CLIENTES_ESCRIBIR'" [routerLink]="[cliente.id, 'editar']" class="btn">Editar</a>
+              <button *appSiPermiso="'CLIENTES_ESCRIBIR'" type="button" class="btn btn-peligro" (click)="eliminar(cliente)">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="vacio">No hay clientes registrados.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
+
+@if (clientePorEliminar(); as cliente) {
+  <div class="modal-fondo" (click)="cancelarEliminacion()">
+    <section
+      class="modal-eliminar"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="titulo-eliminar-cliente"
+      aria-describedby="descripcion-eliminar-cliente"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal-icono" aria-hidden="true">!</div>
+      <p class="modal-eyebrow">Confirmar acción</p>
+      <h2 id="titulo-eliminar-cliente">¿Eliminar este cliente?</h2>
+      <p id="descripcion-eliminar-cliente" class="modal-descripcion">
+        El cliente dejará de estar disponible para registrar ventas y consultas futuras.
+      </p>
+
+      <div class="cliente-resumen">
+        <span class="resumen-icono" aria-hidden="true">👤</span>
+        <span class="resumen-datos">
+          <strong>{{ cliente.apellidos }}, {{ cliente.nombres }}</strong>
+          <small>{{ cliente.email }}</small>
+        </span>
+        <span class="estado-cliente" [class.inactivo]="!cliente.estado">
+          {{ cliente.estado ? 'Activo' : 'Inactivo' }}
+        </span>
+      </div>
+
+      <div class="modal-acciones">
+        <button type="button" class="btn modal-cancelar" [disabled]="eliminando()" (click)="cancelarEliminacion()">
+          Cancelar
+        </button>
+        <button type="button" class="btn modal-confirmar" [disabled]="eliminando()" (click)="confirmarEliminacion()">
+          {{ eliminando() ? 'Eliminando…' : 'Sí, eliminar cliente' }}
+        </button>
+      </div>
+    </section>
+  </div>
+}

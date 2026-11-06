@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PaginaResponse } from '../../../../core/models/pagina-response';
+import { SiPermisoDirective } from '../../../../core/auth/si-permiso.directive';
 import { mensajeError } from '../../../../core/utils/http-error';
 import { Categoria } from '../../../categorias/models/categoria.model';
 import { CategoriaService } from '../../../categorias/services/categoria-service';
@@ -11,7 +12,7 @@ import { ProductoService } from '../../services/producto-service';
 
 @Component({
   selector: 'app-producto-list',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, SiPermisoDirective],
   templateUrl: './producto-list.html',
   styleUrl: './producto-list.css',
 })

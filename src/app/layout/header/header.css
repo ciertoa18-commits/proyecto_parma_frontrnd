@@ -29,3 +29,12 @@
 .menubar a { color: #d9e7f5; text-decoration: none; }
 .menubar a:hover { color: #fff; }
 .usuario { margin-left: auto; font-size: 14px; opacity: .85; }
+.btn-salir {
+  padding: 8px 12px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 5px;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+}
+.btn-salir:hover { background: rgb(255 255 255 / 12%); }

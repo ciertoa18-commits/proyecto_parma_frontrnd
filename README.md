@@ -4,13 +4,23 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-To start a local development server, run:
+Start PharmaBackend on port `8080` first. Then, from this directory, run:
 
 ```bash
-ng serve
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The Angular development server opens at `http://localhost:4200/`. Its development
+proxy forwards `/api` requests to `http://localhost:8080`, so the backend must be
+running for API-backed screens to load. Use `localhost` (not the `127.0.0.1`
+address) so the browser origin matches the backend's allowed development origin.
+
+The environment URL for a production build is in
+`src/environments/environment.ts`; update it to the deployed backend URL before
+deploying.
+
+See [INFORME_TECNICO_S7.md](./INFORME_TECNICO_S7.md) for the module architecture,
+client CRUD scope, and validation performed for the Session 7 guide.
 
 ## Code scaffolding
 
